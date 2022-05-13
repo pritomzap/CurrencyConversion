@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">CurrencyConversion</string>
+    <string name="app_common_api_error">Something went wrong</string>
+</resources>
