@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CurrencyConversion</string>
     <string name="app_common_api_error">Something went wrong</string>
+    <string name="app_common_done">Done</string>
+    <string name="app_common_success">Success</string>
+    <string name="alert_dialog_common_error_title">Whoops! Please find below errors -</string>
 </resources>

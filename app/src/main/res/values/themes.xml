@@ -12,4 +12,11 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
+    <style name="FullScreenDialog">
+        <item name="android:windowAnimationStyle">@style/Animation.WindowSlideUpDown</item>
+    </style>
+    <style name="Animation.WindowSlideUpDown" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/start_slide_up_1</item>
+        <item name="android:windowExitAnimation">@anim/start_slide_down_1</item>
+    </style>
 </resources>

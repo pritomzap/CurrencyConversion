@@ -79,15 +79,18 @@ android {
     productFlavors{
         create("dev"){
             dimension = "environment"
-            buildConfigField("String", "BASE_URL", "\"https://dev-apigw-personal.deshipay.com/api/v1/\"")
+            buildConfigField("String", "BASE_URL", "\"https://openexchangerates.org/\"")
+            buildConfigField("String", "API_KEY", "\"9a9b8db52b7441829ba344589fe10f16\"")
         }
         create("staging"){
             dimension = "environment"
-            buildConfigField("String", "BASE_URL", "\"https://staging-apigw-personal.deshipay.com/api/v1/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.apilayer.com/\"")
+            buildConfigField("String", "API_KEY", "\"InK4FtnyGNGABNTVlMxz7cwCxAKNU1cU\"")
         }
         create("production"){
             dimension = "environment"
-            buildConfigField("String", "BASE_URL", "\"https://personal.theqrpay.com/api/v1/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.apilayer.com/\"")
+            buildConfigField("String", "API_KEY", "\"InK4FtnyGNGABNTVlMxz7cwCxAKNU1cU\"")
         }
     }
 }

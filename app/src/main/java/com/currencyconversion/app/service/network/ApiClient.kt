@@ -3,6 +3,7 @@ package com.deshi.personal.service.network
 import android.os.Build
 import android.util.Log
 import com.currencyconversion.app.BuildConfig
+import com.currencyconversion.app.BuildConfig.BASE_URL
 import com.currencyconversion.app.service.network.Tls12SocketFactory
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
@@ -38,6 +39,7 @@ class ApiClient @Inject constructor(){
                     val request = chain.request().newBuilder()
                             .addHeader("Accept", "application/json")
                             .addHeader("Content-Type","application/json")
+                            //.addHeader("app_id",BuildConfig.API_KEY)
                     chain.proceed(request.build())
             }.retryOnConnectionFailure(true)
 

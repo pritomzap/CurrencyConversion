@@ -3,12 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/drawable/drawable_active_btn_background.xml" value="0.2595" />
+        <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/drawable/ic_close_icon.xml" value="0.2595" />
+        <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/drawable/ic_failed_icon.xml" value="0.2595" />
         <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/drawable/ic_status_check.xml" value="0.243" />
         <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/drawable/ic_status_declined.xml" value="0.243" />
+        <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/drawable/ic_success_icon.xml" value="0.2595" />
         <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/layout/activity_main.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/layout/custom_progress_dialog.xml" value="0.10196406184705391" />
         <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/layout/fragment_converter.xml" value="0.2" />
         <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/layout/fragment_coverter.xml" value="0.10196406184705391" />
         <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/layout/fragment_splash_screen.xml" value="0.176" />
+        <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/layout/layout_common_dialog.xml" value="0.20863616930312098" />
         <entry key="..\:/Users/prito/OneDrive/Desktop/AndroidStudioProjects/CurrencyConversion/app/src/main/res/layout/layout_custom_toast.xml" value="0.12360688956433637" />
       </map>
     </option>

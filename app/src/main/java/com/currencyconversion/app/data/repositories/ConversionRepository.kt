@@ -16,13 +16,13 @@ import javax.inject.Inject
 class ConversionRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     @ApplicationContext context: Context
-): BaseRepository(context) {
+): BaseRepository(context),IConversionRepository {
 
     fun setOnAuthenticate(block:()->Unit){
         setDoOnUnauthenticate(block)
     }
 
-    suspend fun responseExchangeRate(): Flow<NetworkResult<ResponseExRate>> {
+    override suspend fun responseExchangeRate(): Flow<NetworkResult<ResponseExRate>> {
         return flow {
             emit(safeApiCall { remoteDataSource.getExchangeRate() })
         }.flowOn(Dispatchers.IO)
