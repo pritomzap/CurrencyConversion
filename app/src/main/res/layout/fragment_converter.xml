@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="mainViewModel"
+            type="com.currencyconversion.app.ui.viewModels.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,5 +15,57 @@
         tools:context=".ui.fragments.ConverterFragment">
 
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_15dp"
+            android:layout_marginEnd="@dimen/size_15dp"
+            android:afterTextChanged="@{mainViewModel.onTextChanged}"
+            android:ems="10"
+            android:hint="@string/hint_amount_field"
+            android:textSize="@dimen/text_24sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAmountText"
+            android:padding="@dimen/size_8dp"
+            android:background="@drawable/drawable_amount_bg"
+            android:inputType="numberDecimal"
+            android:text="@{mainViewModel.amountText}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logoMain"
+            app:setSelectionEnd="@{mainViewModel.amountText}" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logoMain"
+            android:layout_width="@dimen/size_100dp"
+            android:layout_height="@dimen/size_50dp"
+            android:layout_marginStart="@dimen/size_15dp"
+            android:layout_marginTop="@dimen/size_50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_logo" />
+
+        <AutoCompleteTextView
+            android:id="@+id/btnDaySelection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_amount_bg"
+            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="textNoSuggestions"
+            android:padding="@dimen/size_8dp"
+            app:configureDropDown="@{mainViewModel.dropDownAdapter}"
+            android:singleLine="true"
+            android:hint="@string/currency_selection_hint"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:textColor="@color/colorAmountText"
+            android:textSize="@dimen/text_24sp"
+            app:layout_constraintEnd_toEndOf="@+id/etAmount"
+            app:layout_constraintTop_toBottomOf="@+id/etAmount"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

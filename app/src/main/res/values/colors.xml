@@ -9,4 +9,5 @@
     <color name="colorRedBackground">#FF4D4D</color>
     <color name="colorGreenIdentical">#8BC34A</color>
     <color name="colorWhiteIdentical">#FFFFFF</color>
+    <color name="colorAmountText">#757575</color>
 </resources>

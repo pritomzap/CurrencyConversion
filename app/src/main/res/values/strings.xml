@@ -4,4 +4,9 @@
     <string name="app_common_done">Done</string>
     <string name="app_common_success">Success</string>
     <string name="alert_dialog_common_error_title">Whoops! Please find below errors -</string>
+    <string name="error_amount_is_blank_or_empty">Amount field is required</string>
+    <string name="error_amount_contains_alphabates">Text contains alphabets</string>
+    <string name="error_amount_contains_special_charecters">Amount contains special charecters</string>
+    <string name="hint_amount_field">###,####.##</string>
+    <string name="currency_selection_hint">Select currency</string>
 </resources>

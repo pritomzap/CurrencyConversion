@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         layoutBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         layoutBinding.root.post{
             attachObserver()
+
         }
         mainViewModel.getExchangeRates()
     }
