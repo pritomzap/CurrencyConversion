@@ -41,7 +41,7 @@ abstract class BaseFragment(@LayoutRes val layout: Int) : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        attachResumeableObserver()
+        attachResumableObserver()
         // Set up touch listener for non-text box views to hide keyboard.
         if (binding?.root !is EditText) {
             binding?.root?.setOnTouchListener { v, event ->
@@ -53,21 +53,9 @@ abstract class BaseFragment(@LayoutRes val layout: Int) : Fragment() {
 
     open fun attachSingleObserver(){}
 
-    open fun attachResumeableObserver(){}
-
-
-    fun showKeyboards(view:View){
-        view.requestFocus()
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-    }
+    open fun attachResumableObserver(){}
 
     inline fun <reified specific : ViewDataBinding> getSpecificBinding() = binding as? specific
-
-    fun hideKeyboards(view:View) {
-        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
-    }
 
     private fun hideSoftKeyboard() {
         val inputMethodManager = mActivity?.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager

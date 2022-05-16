@@ -2,6 +2,7 @@ package com.currencyconversion.app.ui.viewModels
 
 import android.app.Application
 import android.text.Editable
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -26,18 +27,15 @@ class MainViewModel @Inject constructor(
     private var firstTimeLoad = true
     private val _responseExchangeRate: MutableLiveData<NetworkResult<ResponseExRate>> = MutableLiveData()
     val responseExchangeRate: LiveData<NetworkResult<ResponseExRate>> = _responseExchangeRate
+    private val _selectedCurrency:MutableLiveData<Double> = MutableLiveData()
     val amountText = MutableLiveData<String>()
     get() = field
-    val dropDownAdapter = CustomDropDownAdapter(mApplication,R.layout.layout_currency_dropdown)
+    val dropDownAdapter = CustomDropDownAdapter(mApplication,android.R.layout.simple_dropdown_item_1line, android.R.id.text1, emptyList())
 
 
     fun getExchangeRates() = viewModelScope.launch {
         flowHandler(_responseExchangeRate){
             repository.responseExchangeRate()
-        }
-        withContext(Dispatchers.Main) {
-            dropDownAdapter.addAll("asda","asddd")
-            dropDownAdapter.notifyDataSetChanged()
         }
     }
 
@@ -57,6 +55,23 @@ class MainViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         timerNetworkJob.cancel()
+    }
+
+    fun setCurrencyToAdapter(currencyList:List<String>){
+        dropDownAdapter.setData(currencyList)
+    }
+
+    fun onSelectCurrency(position:Int){
+        _selectedCurrency.value = getExchangeValueFromCurrency(dropDownAdapter.getValueFromPosition(position).trim())
+        Log.i("TAG", "onSelectCurrency: .........."+_selectedCurrency.value)
+    }
+
+    private fun getExchangeValueFromCurrency(currencyKey:String):Double?{
+        var exchangeMap = responseExchangeRate.value?.data?.rates
+        if (exchangeMap?.contains(currencyKey) == true){
+            return exchangeMap[currencyKey]
+        }
+        return null
     }
 
     fun onTextChanged(s: Editable) {

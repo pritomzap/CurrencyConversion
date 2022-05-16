@@ -58,6 +58,7 @@
             android:inputType="textNoSuggestions"
             android:padding="@dimen/size_8dp"
             app:configureDropDown="@{mainViewModel.dropDownAdapter}"
+            app:clickEvent="@{(i,j,k,l) -> mainViewModel.onSelectCurrency(k)}"
             android:singleLine="true"
             android:hint="@string/currency_selection_hint"
             android:textStyle="normal"

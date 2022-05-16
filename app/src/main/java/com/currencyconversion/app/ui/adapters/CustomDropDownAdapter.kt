@@ -1,17 +1,36 @@
 package com.currencyconversion.app.ui.adapters
 
 import android.content.Context
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import androidx.annotation.NonNull
 
-class CustomDropDownAdapter : ArrayAdapter<Any?> {
-    constructor(@NonNull context: Context?, resource: Int) : super(context!!, resource) {}
-    constructor(@NonNull context: Context?, resource: Int, textViewResourceId: Int) : super(context!!, resource, textViewResourceId)
-    constructor(@NonNull context: Context?, resource: Int, @NonNull objects: Array<Any?>?) : super(context!!, resource, objects!!)
-    constructor(@NonNull context: Context?, resource: Int, textViewResourceId: Int, @NonNull objects: Array<Any?>?) : super(context!!, resource, textViewResourceId, objects!!)
-    constructor(@NonNull context: Context?, resource: Int, @NonNull objects: List<*>?) : super(context!!, resource, objects!!)
-    constructor(@NonNull context: Context?, resource: Int, textViewResourceId: Int, @NonNull objects: List<*>?) : super(context!!, resource, textViewResourceId, objects!!)
+class CustomDropDownAdapter : ArrayAdapter<String> {
+
+    private var fullList:MutableList<String> = mutableListOf()
+
+    constructor(@NonNull context: Context?, resource: Int, textViewResourceId: Int, @NonNull objects: List<String>) : super(context!!, resource, textViewResourceId, objects){
+        this.fullList.addAll(objects)
+    }
+
+    override fun getCount(): Int {
+        return fullList.size
+    }
+
+    override fun getItem(position: Int): String? {
+        return fullList[position]
+    }
+
+
+    fun setData(data:List<String>){
+        this.fullList.apply {
+            clear()
+            addAll(data)
+        }
+        this.notifyDataSetChanged()
+    }
 
     @NonNull
     override fun getFilter(): Filter {
@@ -23,4 +42,6 @@ class CustomDropDownAdapter : ArrayAdapter<Any?> {
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {}
         }
     }
+
+    fun getValueFromPosition(position: Int) = fullList[position]
 }

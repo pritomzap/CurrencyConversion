@@ -1,6 +1,8 @@
 package com.currencyconversion.app.ui.customViews
 
+import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
+import android.widget.BaseAdapter
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.databinding.BindingAdapter
 import com.currencyconversion.app.ui.adapters.CustomDropDownAdapter
@@ -23,5 +25,12 @@ fun autoCompleteTextViewDropDown(autoCompleteTextView: AutoCompleteTextView,adap
             showDropDown()
             false
         }
+    }
+}
+
+@BindingAdapter("clickEvent")
+fun autoCompleteTextViewItemClickListener(autoCompleteTextView: AutoCompleteTextView,listener: AdapterView.OnItemClickListener){
+    autoCompleteTextView.apply {
+        setOnItemClickListener(listener)
     }
 }

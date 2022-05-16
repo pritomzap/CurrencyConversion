@@ -8,7 +8,7 @@ data class ResponseExRate(
 	val license: String? = null,
 
 	@field:SerializedName("rates")
-	val rates: Map<String,Double?>? = null,
+	val rates: HashMap<String,Double?>? = null,
 
 	@field:SerializedName("disclaimer")
 	val disclaimer: String? = null,
