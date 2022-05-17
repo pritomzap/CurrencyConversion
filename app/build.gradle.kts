@@ -79,8 +79,8 @@ android {
     productFlavors{
         create("dev"){
             dimension = "environment"
-            buildConfigField("String", "BASE_URL", "\"https://openexchangerates.org/\"")
-            buildConfigField("String", "API_KEY", "\"9a9b8db52b7441829ba344589fe10f16\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.apilayer.com/\"")
+            buildConfigField("String", "API_KEY", "\"InK4FtnyGNGABNTVlMxz7cwCxAKNU1cU\"")
         }
         create("staging"){
             dimension = "environment"

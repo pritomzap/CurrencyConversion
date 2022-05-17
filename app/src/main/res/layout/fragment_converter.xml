@@ -15,6 +15,28 @@
         tools:context=".ui.fragments.ConverterFragment">
 
 
+        <AutoCompleteTextView
+            android:id="@+id/btnDaySelection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_15dp"
+            android:background="@drawable/drawable_amount_bg"
+            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="@string/currency_selection_hint"
+            android:inputType="textNoSuggestions"
+            android:padding="@dimen/size_10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorAmountText"
+            android:textSize="@dimen/text_20sp"
+            android:textStyle="normal"
+            android:enabled="@{mainViewModel.selectionEnable}"
+            app:clickEvent="@{(i,j,k,l) -> mainViewModel.onSelectCurrency(k)}"
+            app:configureDropDown="@{mainViewModel.dropDownAdapter}"
+            app:layout_constraintEnd_toEndOf="@+id/etAmount"
+            app:layout_constraintTop_toBottomOf="@+id/etAmount" />
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etAmount"
             android:layout_width="0dp"
@@ -22,15 +44,15 @@
             android:layout_marginStart="@dimen/size_15dp"
             android:layout_marginEnd="@dimen/size_15dp"
             android:afterTextChanged="@{mainViewModel.onTextChanged}"
+            android:background="@drawable/drawable_amount_bg"
             android:ems="10"
             android:hint="@string/hint_amount_field"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/size_8dp"
+            android:text="@{mainViewModel.amountText}"
+            android:textColor="@color/colorAmountText"
             android:textSize="@dimen/text_24sp"
             android:textStyle="bold"
-            android:textColor="@color/colorAmountText"
-            android:padding="@dimen/size_8dp"
-            android:background="@drawable/drawable_amount_bg"
-            android:inputType="numberDecimal"
-            android:text="@{mainViewModel.amountText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,26 +69,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_logo" />
 
-        <AutoCompleteTextView
-            android:id="@+id/btnDaySelection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/drawable_amount_bg"
-            android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:inputType="textNoSuggestions"
-            android:padding="@dimen/size_8dp"
-            app:configureDropDown="@{mainViewModel.dropDownAdapter}"
-            app:clickEvent="@{(i,j,k,l) -> mainViewModel.onSelectCurrency(k)}"
-            android:singleLine="true"
-            android:hint="@string/currency_selection_hint"
-            android:textStyle="normal"
-            android:layout_marginTop="@dimen/size_15dp"
-            android:textColor="@color/colorAmountText"
-            android:textSize="@dimen/text_24sp"
-            app:layout_constraintEnd_toEndOf="@+id/etAmount"
-            app:layout_constraintTop_toBottomOf="@+id/etAmount"
-            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCurrencies"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingStart="@dimen/size_15dp"
+            android:paddingEnd="@dimen/size_15dp"
+            android:paddingTop="@dimen/size_10dp"
+            android:paddingBottom="@dimen/size_10dp"
+            android:clipToPadding="false"
+            app:initRecyclerAdapter="@{mainViewModel.convertedCurrenciesAdapter}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnDaySelection" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

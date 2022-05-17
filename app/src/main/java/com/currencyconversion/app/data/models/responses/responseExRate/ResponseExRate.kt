@@ -4,18 +4,18 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseExRate(
 
-	@field:SerializedName("license")
-	val license: String? = null,
+	@field:SerializedName("success")
+	val success: Boolean = false,
 
-	@field:SerializedName("rates")
-	val rates: HashMap<String,Double?>? = null,
+	@field:SerializedName("source")
+	val source: String? = null,
 
-	@field:SerializedName("disclaimer")
-	val disclaimer: String? = null,
+	@field:SerializedName("quotes")
+	val quotes: HashMap<String,Double>? = null,
 
 	@field:SerializedName("timestamp")
 	val timestamp: Int? = null,
 
-	@field:SerializedName("base")
-	val base: String? = null
+	@field:SerializedName("message")
+	val message: String? = null,
 )

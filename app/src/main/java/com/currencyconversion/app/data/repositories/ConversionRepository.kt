@@ -1,6 +1,7 @@
 package com.currencyconversion.app.data.repositories
 
 import android.content.Context
+import com.currencyconversion.app.data.models.responses.responseExRate.ResponseCurrencies
 import com.currencyconversion.app.data.models.responses.responseExRate.ResponseExRate
 import com.currencyconversion.app.data.remoteDataSource.RemoteDataSource
 import com.currencyconversion.app.service.network.NetworkResult
@@ -18,13 +19,15 @@ class ConversionRepository @Inject constructor(
     @ApplicationContext context: Context
 ): BaseRepository(context),IConversionRepository {
 
-    fun setOnAuthenticate(block:()->Unit){
-        setDoOnUnauthenticate(block)
+    override suspend fun responseExchangeRate(sourceCurrency:String): Flow<NetworkResult<ResponseExRate>> {
+        return flow {
+            emit(safeApiCall { remoteDataSource.getExchangeRate(sourceCurrency) })
+        }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun responseExchangeRate(): Flow<NetworkResult<ResponseExRate>> {
+    override suspend fun responseAllCurrencies(): Flow<NetworkResult<ResponseCurrencies>> {
         return flow {
-            emit(safeApiCall { remoteDataSource.getExchangeRate() })
+            emit(safeApiCall { remoteDataSource.getCurrencies() })
         }.flowOn(Dispatchers.IO)
     }
 }

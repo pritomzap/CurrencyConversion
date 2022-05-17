@@ -24,14 +24,30 @@ class ConverterFragment : BaseFragment(R.layout.fragment_converter) {
         layoutBinding.apply {
             mainViewModel = viewModel
             lifecycleOwner = this@ConverterFragment
-            viewModel.getExchangeRates()
+            viewModel.getAllCurrencies()
+            viewModel.initConvertedAmountRecycler()
         }
     }
 
     override fun attachResumableObserver(){
-        viewModel.responseExchangeRate.observe(viewLifecycleOwner){response->
+        viewModel.currencies.observe(viewLifecycleOwner){response->
             (activity as MainActivity).executeNetworkResults(response, doOnSuccess = {
-                viewModel.setCurrencyToAdapter(response.data?.rates?.keys?.toList()?: emptyList())
+                viewModel.setCurrencyToAdapter(response.data?.currencies?.keys?.toList()?: emptyList())
+            })
+        }
+        viewModel.responseExchangeRate.observe(viewLifecycleOwner){response->
+            (activity as MainActivity).executeNetworkResults(response,showLoading = false, doOnSuccess = {
+                when(response.data?.success){
+                    true->{
+                        viewModel.convertedCurrenciesAdapter.listOfItems = response.data?.quotes?.entries?.map { Pair(it.key, it.value.toString()) }?.toMutableList()
+                    }
+                    false->{
+
+                    }
+                    else -> {
+
+                    }
+                }
             })
         }
     }

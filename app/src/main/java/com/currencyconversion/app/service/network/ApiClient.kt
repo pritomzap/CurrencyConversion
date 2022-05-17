@@ -39,7 +39,7 @@ class ApiClient @Inject constructor(){
                     val request = chain.request().newBuilder()
                             .addHeader("Accept", "application/json")
                             .addHeader("Content-Type","application/json")
-                            //.addHeader("app_id",BuildConfig.API_KEY)
+                            .addHeader("apikey",BuildConfig.API_KEY)
                     chain.proceed(request.build())
             }.retryOnConnectionFailure(true)
 
