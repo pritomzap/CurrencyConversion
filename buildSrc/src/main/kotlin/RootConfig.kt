@@ -7,5 +7,5 @@ object RootConfig {
     const val renderscriptSupportModeEnabled = true
     const val multiDexEnabled = true
     const val vectorDrawablesUseSupportLibrary = true
-    const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    const val testInstrumentationRunner = "com.currencyconversion.app.TestRunner"
 }

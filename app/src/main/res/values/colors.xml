@@ -10,4 +10,5 @@
     <color name="colorGreenIdentical">#8BC34A</color>
     <color name="colorWhiteIdentical">#FFFFFF</color>
     <color name="colorAmountText">#757575</color>
+    <color name="colorHint">#EBEBEB</color>
 </resources>

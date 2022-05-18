@@ -2,7 +2,6 @@ package com.currencyconversion.app.ui.viewModels
 
 import android.app.Application
 import android.text.Editable
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -11,22 +10,28 @@ import androidx.lifecycle.viewModelScope
 import com.currencyconversion.app.R
 import com.currencyconversion.app.data.models.responses.responseExRate.ResponseCurrencies
 import com.currencyconversion.app.data.models.responses.responseExRate.ResponseExRate
-import com.currencyconversion.app.data.repositories.ConversionRepository
+import com.currencyconversion.app.data.repositories.IConversionRepository
 import com.currencyconversion.app.databinding.LayoutCurrencyRecyclerItemBinding
 import com.currencyconversion.app.service.network.NetworkResult
+import com.currencyconversion.app.service.utils.AMOUNT_FORMATTING
+import com.currencyconversion.app.service.utils.AmountTextFormatting
+import com.currencyconversion.app.service.utils.CurrencyConverter
+import com.currencyconversion.app.service.utils.CurrencyFormatting
 import com.currencyconversion.app.ui.adapters.CommonRecyclerAdapter
 import com.currencyconversion.app.ui.adapters.CustomDropDownAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
+import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repository: ConversionRepository,
-    private val mApplication: Application
+    val repository: IConversionRepository,
+    val mApplication: Application
 ) : BaseViewModel(mApplication) {
 
     private lateinit var timerNetworkJob:Job
@@ -45,12 +50,20 @@ class MainViewModel @Inject constructor(
     private val _selectionEnable = MutableLiveData(false)
     val selectionEnable:LiveData<Boolean> = _selectionEnable
     get() = field
+    private val _lastUpdatedTime = MutableLiveData("00:00")
+    val lastUpdatedTime:LiveData<String> = _lastUpdatedTime
+    get() = field
+    private val conversions by lazy{CurrencyFormatting()}
+    private val amountTextFormatting by lazy{AmountTextFormatting()}
 
 
     fun getExchangeRates() = viewModelScope.launch {
         _selectedCurrency.value?.let {currencyString->
             flowHandler(_responseExchangeRate){
                 repository.responseExchangeRate(currencyString)
+            }.invokeOnCompletion {
+                _lastUpdatedTime.value = SimpleDateFormat("hh:mm",Locale.US).format(Date())
+
             }
         }
     }
@@ -94,7 +107,8 @@ class MainViewModel @Inject constructor(
         convertedCurrenciesAdapter.apply {
             expressionViewHolderBinding = {eachItem, viewBinding, _ ->
                 (viewBinding as LayoutCurrencyRecyclerItemBinding).apply {
-                    val convertedPair = getConvertedCurrencyText(eachItem.first) to amountConversion(eachItem.second.toDouble()).toString()
+                    conversions.conversionValue = CurrencyConverter.convertCurrencyWithExchangeRate(eachItem.second,amountText.value!!)
+                    val convertedPair = getConvertedCurrencyText(eachItem.first) to conversions.conversionText
                     this.currency = convertedPair
                 }
             }
@@ -106,42 +120,24 @@ class MainViewModel @Inject constructor(
 
     private fun getConvertedCurrencyText(totalText:String) = "${_selectedCurrency.value!!} to ${totalText.replace(_selectedCurrency.value!!,"")}"
 
-    private fun amountConversion(exRate: Double):Double{
-        return roundOffDecimal(exRate.times(amountText.value!!.toDouble()))
-    }
-
-    private fun roundOffDecimal(number: Double): Double {
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.FLOOR
-        return df.format(number).toDouble()
-    }
-    /*private fun getExchangeValueFromCurrency(currencyKey:String):Double?{
-        var exchangeMap = responseExchangeRate.value?.data?.rates
-        if (exchangeMap?.contains(currencyKey) == true){
-            return exchangeMap[currencyKey]
-        }
-        return null
-    }*/
-
     fun onTextChanged(s: Editable) {
         val textValidation = textValidation(s)
         if (textValidation.isNullOrEmpty()){
             _selectionEnable.value = true
-            amountText.value = amountCommaSeparation(s.toString())
-        }else{
-
-        }
+            conversions.conversionValue = s.toString()
+            amountText.value = conversions.conversionText
+        }else
+            _selectionEnable.value = false
     }
 
     private fun textValidation(s:Editable):String?{
-        return if (s.isEmpty() || s.isBlank())
-            mApplication.getString(R.string.error_amount_is_blank_or_empty)
-        else if (s.matches("^[A-Za-z]*$".toRegex()))
-            mApplication.getString(R.string.error_amount_contains_alphabates)
-        else if (s.matches("[!@#$%&*()_+=|<>?{}\\[\\]~-]".toRegex()))
-            mApplication.getString(R.string.error_amount_contains_special_charecters)
-        else
-            null
+        amountTextFormatting.amountValue = s.toString()
+        return when(amountTextFormatting.formattingStatus){
+            AMOUNT_FORMATTING.BLANK_OR_EMPTY-> mApplication.getString(R.string.error_amount_is_blank_or_empty)
+            AMOUNT_FORMATTING.CONTAINS_ALPHABETES -> mApplication.getString(R.string.error_amount_contains_alphabates)
+            AMOUNT_FORMATTING.CONTAINS_SPECIAL_CHARECTERS -> mApplication.getString(R.string.error_amount_contains_special_charecters)
+            AMOUNT_FORMATTING.VALID -> null
+        }
     }
 
     private fun validateSelectedCurrency():Boolean{
@@ -152,16 +148,5 @@ class MainViewModel @Inject constructor(
         return true
     }
 
-    private fun amountCommaSeparation(givenstring:String):String?{
-        return try {
-            val newString = if (givenstring.contains(",")) givenstring.replace(",".toRegex(), "")
-            else givenstring
-            DecimalFormat("#,###,###.##").format(newString.toLong())
-        } catch (nfe: NumberFormatException) {
-            null
-        } catch (e: Exception) {
-            null
-        }
-    }
 
 }

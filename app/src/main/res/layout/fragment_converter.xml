@@ -15,6 +15,44 @@
         tools:context=".ui.fragments.ConverterFragment">
 
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_amount_title"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/logoMain"
+            app:layout_constraintTop_toBottomOf="@+id/logoMain" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCurrencies"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/size_15dp"
+            android:paddingTop="@dimen/size_90dp"
+            android:paddingEnd="@dimen/size_15dp"
+            android:paddingBottom="@dimen/size_30dp"
+            app:initRecyclerAdapter="@{mainViewModel.convertedCurrenciesAdapter}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAmount" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/size_100dp"
+            android:background="@drawable/gradient_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAmount" />
+
         <AutoCompleteTextView
             android:id="@+id/btnDaySelection"
             android:layout_width="wrap_content"
@@ -43,20 +81,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_15dp"
             android:layout_marginEnd="@dimen/size_15dp"
+            android:layout_marginTop="@dimen/size_6dp"
             android:afterTextChanged="@{mainViewModel.onTextChanged}"
             android:background="@drawable/drawable_amount_bg"
             android:ems="10"
             android:hint="@string/hint_amount_field"
             android:inputType="numberDecimal"
-            android:padding="@dimen/size_8dp"
+            android:padding="@dimen/size_10dp"
+            android:maxLines="1"
             android:text="@{mainViewModel.amountText}"
             android:textColor="@color/colorAmountText"
+            android:textColorHint="#B6B6B6"
             android:textSize="@dimen/text_24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logoMain"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
             app:setSelectionEnd="@{mainViewModel.amountText}" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -69,20 +110,31 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_logo" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCurrencies"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingStart="@dimen/size_15dp"
-            android:paddingEnd="@dimen/size_15dp"
-            android:paddingTop="@dimen/size_10dp"
-            android:paddingBottom="@dimen/size_10dp"
-            android:clipToPadding="false"
-            app:initRecyclerAdapter="@{mainViewModel.convertedCurrenciesAdapter}"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_2dp"
+            android:text="@string/last_updated_at"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
+            app:layout_constraintEnd_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_15dp"
+            android:text="@{mainViewModel.lastUpdatedTime}"
+            android:textColor="@color/colorGreenIdentical"
+            android:textSize="@dimen/text_10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/logoMain"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnDaySelection" />
+            app:layout_constraintTop_toTopOf="@+id/logoMain" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,6 +1,10 @@
 package com.deshi.personal.service.di
 
 import android.content.Context
+import com.currencyconversion.app.data.remoteDataSource.RemoteDataSource
+import com.currencyconversion.app.data.repositories.ConversionRepository
+import com.currencyconversion.app.data.repositories.IConversionRepository
+import com.currencyconversion.app.service.network.ApiService
 import com.currencyconversion.app.ui.customViews.CustomToast
 import dagger.Module
 import dagger.Provides
@@ -20,5 +24,4 @@ object ApplicationModule{
     @Singleton
     @Provides
     fun provideApplicationContext(@ApplicationContext appContext: Context):Context = appContext
-
 }

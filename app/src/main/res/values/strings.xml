@@ -9,4 +9,6 @@
     <string name="error_amount_contains_special_charecters">Amount contains special charecters</string>
     <string name="hint_amount_field">###,####.##</string>
     <string name="currency_selection_hint">Select currency</string>
+    <string name="enter_amount_title">Enter amount:</string>
+    <string name="last_updated_at">Last updated at:</string>
 </resources>

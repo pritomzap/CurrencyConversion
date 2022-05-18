@@ -24,4 +24,8 @@
     <dimen name="size_4dp">4dp</dimen>
     <dimen name="text_20sp">20sp</dimen>
     <dimen name="text_16sp">16sp</dimen>
+    <dimen name="size_90dp">90dp</dimen>
+    <dimen name="size_6dp">6dp</dimen>
+    <dimen name="size_2dp">2dp</dimen>
+    <dimen name="text_10sp">10sp</dimen>
 </resources>
