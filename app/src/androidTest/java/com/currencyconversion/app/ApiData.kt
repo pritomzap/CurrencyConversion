@@ -15,7 +15,7 @@ object ApiData {
     }
 
     //Random fake exchange rates
-    private val usdExRates = HashMap<String,Double>().apply {
+    private val usdExRates = HashMap<String,Double?>().apply {
         put("AED",1.241)
         put("AFN",0.677)
         put("ALL",34.11)
@@ -23,7 +23,7 @@ object ApiData {
         put("ANG",80.671)
     }
 
-    private val yenExRates = HashMap<String,Double>().apply {
+    private val yenExRates = HashMap<String,Double?>().apply {
         put("AED",1.111)
         put("AFN",14.981)
         put("ALL",100.12)

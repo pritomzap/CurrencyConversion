@@ -1,3 +1,10 @@
+import AttachDepencies.implementCoroutine
+import AttachDepencies.implementLifeCycle
+import AttachDepencies.implementRetrofit
+import AttachDepencies.implementAndroidX
+import AttachDepencies.implementHilt
+import AttachDepencies.implementOthers
+
 plugins {
     id ("com.android.application")
     id ("kotlin-parcelize")
@@ -81,7 +88,7 @@ android {
         }
     }
 
-    flavorDimensions ("environment")
+    flavorDimensions (AppConfig.productFlavor)
     productFlavors{
         create("dev"){
             dimension = "environment"
@@ -103,73 +110,12 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}")
-
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.6.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
-    implementation("androidx.core:core-ktx:1.7.0")
-
-    implementation ("com.google.dagger:hilt-android:${Versions.hiltVersion}")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    testImplementation("androidx.test:runner:1.4.0")
-    implementation("com.google.ar:core:1.31.0")
-    kapt ("com.google.dagger:hilt-compiler:${Versions.hiltVersion}")
-
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-scalars:2.6.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
-    implementation ("com.facebook.stetho:stetho-okhttp3:1.5.1")
-
-
-    implementation ("com.google.code.gson:gson:2.8.7")
-
-
-    val coroutine_version = "1.5.1"
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutine_version}")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutine_version}")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${coroutine_version}")
-    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:${coroutine_version}")
-    // ViewModel
-    val lifeCycleVersion = "2.2.0"
-    implementation ("androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:$lifeCycleVersion")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleVersion")
-
-    val activity_version = "1.3.0"
-    implementation ("androidx.activity:activity-ktx:$activity_version")
-    val fragment_version = "1.3.6"
-    implementation ("androidx.fragment:fragment-ktx:$fragment_version")
-    val nav_version_ktx = "2.3.5"
-    implementation ("androidx.navigation:navigation-fragment-ktx:$nav_version_ktx")
-    implementation ("androidx.navigation:navigation-ui-ktx:$nav_version_ktx")
-
-
-    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
-    testImplementation ("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
-
-    androidTestImplementation ("com.google.dagger:hilt-android-testing:${Versions.hiltVersion}")
-    kaptAndroidTest ("com.google.dagger:hilt-compiler:${Versions.hiltVersion}")
-
-    val arch_version = "2.1.0"
-    androidTestImplementation ("androidx.arch.core:core-testing:$arch_version")
-    androidTestImplementation ("androidx.test:core-ktx:1.4.0")
-
-    androidTestImplementation ("com.google.truth:truth:1.1")
-    testImplementation ("com.google.truth:truth:1.1")
-
-    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.7.0")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:${coroutine_version}")
-
-    testImplementation ("org.mockito:mockito-core:3.3.3")
-    testImplementation ("org.mockito:mockito-inline:3.3.3")
-    testImplementation ("org.mockito:mockito-android:3.3.3")
-
-
-
+    implementRetrofit()
+    implementHilt()
+    implementAndroidX()
+    implementCoroutine()
+    implementLifeCycle()
+    implementOthers()
 }
 kapt {
     correctErrorTypes = true

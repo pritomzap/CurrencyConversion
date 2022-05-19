@@ -37,7 +37,7 @@
             android:paddingStart="@dimen/size_15dp"
             android:paddingTop="@dimen/size_90dp"
             android:paddingEnd="@dimen/size_15dp"
-            android:paddingBottom="@dimen/size_30dp"
+            android:paddingBottom="@dimen/size_40dp"
             app:initRecyclerAdapter="@{mainViewModel.convertedCurrenciesAdapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

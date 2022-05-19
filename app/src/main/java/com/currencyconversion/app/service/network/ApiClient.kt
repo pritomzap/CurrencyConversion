@@ -1,11 +1,8 @@
-package com.deshi.personal.service.network
+package com.currencyconversion.app.service.network
 
 import android.os.Build
 import android.util.Log
 import com.currencyconversion.app.BuildConfig
-import com.currencyconversion.app.BuildConfig.BASE_URL
-import com.currencyconversion.app.service.network.Tls12SocketFactory
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -42,10 +39,6 @@ class ApiClient @Inject constructor(){
                             .addHeader("apikey",BuildConfig.API_KEY)
                     chain.proceed(request.build())
             }.retryOnConnectionFailure(true)
-
-            if (BuildConfig.DEBUG){
-                client.addNetworkInterceptor(StethoInterceptor())
-            }
             val gson = GsonBuilder()
                     .setLenient()
                     .create()
