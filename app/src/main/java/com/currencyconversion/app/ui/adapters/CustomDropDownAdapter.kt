@@ -7,11 +7,12 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 import androidx.annotation.NonNull
 
+//Drop down adapter for currency selection
 class CustomDropDownAdapter : ArrayAdapter<String> {
 
     private var fullList:MutableList<String> = mutableListOf()
 
-    constructor(@NonNull context: Context?, resource: Int, textViewResourceId: Int, @NonNull objects: List<String>) : super(context!!, resource, textViewResourceId, objects){
+    constructor(@NonNull context: Context?, resource: Int, @NonNull objects: List<String>?) : super(context!!, resource, objects!!){
         this.fullList.addAll(objects)
     }
 

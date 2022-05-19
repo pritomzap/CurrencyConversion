@@ -1,5 +1,6 @@
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
+
 object Versions {
     val legacySupport = "1.0.0"
     val constraintLayout = "2.1.3"
@@ -78,7 +79,7 @@ object KaptTestImplementation{
     val kaptTest = "com.google.dagger:hilt-compiler:${Versions.hiltVersion}"
 }
 
-object AttachDepencies{
+object AttachDependencies{
     fun DependencyHandler.implementCoroutine() {
         add("implementation", Implementations.coroutineCore)
         add("implementation", Implementations.coroutineAndroid)

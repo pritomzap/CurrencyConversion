@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         layoutBinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
     }
 
+    //To handle network request Loding, Success and error state
     fun <T> executeNetworkResults(response: NetworkResult<T>, showLoading:Boolean = true, doOnLoading: (() -> Unit)? = null, doOnSuccess: (() -> Unit)? = null, doOnError: (() -> Unit)? = null) {
         when (response) {
             is NetworkResult.Success -> {
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Multipurpose dialogfragment showing
     fun showCommonDialog(dialogBuilder: CommonDialogBuilder){
         if (commonDialogFragment.isAdded) commonDialogFragment.dismiss()
         dialogFragmentViewModel.setData(dialogBuilder)
@@ -63,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        //network connection monitoring
         networkStateMonitor.observe(this) { isConnected ->
             isConnected?.let {
                 if (it) {

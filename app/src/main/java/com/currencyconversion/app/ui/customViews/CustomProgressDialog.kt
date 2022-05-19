@@ -10,7 +10,7 @@ import com.currencyconversion.app.R
 import com.currencyconversion.app.databinding.CustomProgressDialogBinding
 
 /**
- * Created by Sahidul Islam on 24-Jul-21.
+ * CustomProgress dialog for loading
  */
 object CustomProgressDialog {
 

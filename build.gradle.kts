@@ -18,7 +18,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url  = uri("https://www.jitpack.io") }
-        //  maven { url 'https://mapbox.bintray.com/mapbox' }
     }
 }
 

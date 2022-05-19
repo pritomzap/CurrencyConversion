@@ -1,9 +1,9 @@
-import AttachDepencies.implementCoroutine
-import AttachDepencies.implementLifeCycle
-import AttachDepencies.implementRetrofit
-import AttachDepencies.implementAndroidX
-import AttachDepencies.implementHilt
-import AttachDepencies.implementOthers
+import AttachDependencies.implementCoroutine
+import AttachDependencies.implementLifeCycle
+import AttachDependencies.implementRetrofit
+import AttachDependencies.implementAndroidX
+import AttachDependencies.implementHilt
+import AttachDependencies.implementOthers
 
 plugins {
     id ("com.android.application")

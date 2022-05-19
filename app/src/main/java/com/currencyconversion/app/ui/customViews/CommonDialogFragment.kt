@@ -19,6 +19,10 @@ import com.currencyconversion.app.ui.viewModels.DialogFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
+
+//Multipurpose dialog fragment with a viewmodel.
+//When user set something to the viewmodel with CommonDialogBuilder.kt and if the dialog fragment is alive then,
+//the dialog framgent with update the data and display on the dialogfragment
 @AndroidEntryPoint
 @WithFragmentBindings
 class CommonDialogFragment : AppCompatDialogFragment() {

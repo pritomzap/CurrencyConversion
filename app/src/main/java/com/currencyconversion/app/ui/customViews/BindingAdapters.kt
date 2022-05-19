@@ -20,6 +20,7 @@ import com.currencyconversion.app.ui.adapters.CommonRecyclerAdapter
 import com.currencyconversion.app.ui.adapters.CustomDropDownAdapter
 
 
+//For setting amount edittext cursor at the end after the text formatting
 @BindingAdapter("setSelectionEnd")
 fun editTextSetSelectionEndToText(editText:AppCompatEditText,text:String?){
     if (!text.isNullOrEmpty())
@@ -28,6 +29,7 @@ fun editTextSetSelectionEndToText(editText:AppCompatEditText,text:String?){
         }catch (e:Exception){}
 }
 
+//To set up Custom dropdown adapter
 @BindingAdapter("configureDropDown")
 fun autoCompleteTextViewDropDown(autoCompleteTextView: AutoCompleteTextView,adapter:CustomDropDownAdapter){
     autoCompleteTextView.apply {
@@ -40,6 +42,7 @@ fun autoCompleteTextViewDropDown(autoCompleteTextView: AutoCompleteTextView,adap
     }
 }
 
+//To handle clickevent when user picked one item from drop down adapter
 @BindingAdapter("clickEvent")
 fun autoCompleteTextViewItemClickListener(autoCompleteTextView: AutoCompleteTextView,listener: AdapterView.OnItemClickListener){
     autoCompleteTextView.apply {
@@ -47,6 +50,7 @@ fun autoCompleteTextViewItemClickListener(autoCompleteTextView: AutoCompleteText
     }
 }
 
+//Recyclerview initialization
 @BindingAdapter("initRecyclerAdapter")
 fun initRecyclerAdapter(recyclerView:RecyclerView,mAdapter:CommonRecyclerAdapter<Pair<String,String>>){
     recyclerView.apply {
@@ -56,6 +60,7 @@ fun initRecyclerAdapter(recyclerView:RecyclerView,mAdapter:CommonRecyclerAdapter
     }
 }
 
+//To set spannable text to the recyclerview Adapter
 @BindingAdapter("setSpannableText")
 fun getSpannableText(view:AppCompatTextView,text:String){
     val spannable = SpannableString(text)

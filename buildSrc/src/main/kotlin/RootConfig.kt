@@ -1,4 +1,5 @@
 object RootConfig {
+    //Gradle root config
     const val compileSkdVersion = 31
     const val buildToolsVersion = "30.0.3"
     const val minSdkVersion = 21

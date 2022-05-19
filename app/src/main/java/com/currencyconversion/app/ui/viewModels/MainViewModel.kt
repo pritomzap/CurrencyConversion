@@ -39,6 +39,10 @@ class MainViewModel @Inject constructor(
     val mApplication: Application
 ) : BaseViewModel(mApplication) {
 
+    companion object{
+        const val TIME_INTERVAL= (30*60000).toLong()
+    }
+
     private lateinit var timerNetworkJob:Job
     private var firstTimeLoad = true
     private val _responseExchangeRate: MutableLiveData<NetworkResult<ResponseExRate>> = MutableLiveData()
@@ -48,7 +52,7 @@ class MainViewModel @Inject constructor(
     val _selectedCurrency:MutableLiveData<String> = MutableLiveData()
     val amountText = MutableLiveData<String>()
     get() = field
-    val dropDownAdapter = CustomDropDownAdapter(mApplication,android.R.layout.simple_dropdown_item_1line, android.R.id.text1, emptyList())
+    val dropDownAdapter = CustomDropDownAdapter(mApplication,R.layout.layout_currency_dropdown, emptyList())
     get() = field
     val convertedCurrenciesAdapter = CommonRecyclerAdapter<Pair<String,String>>()
     get() = field
@@ -82,7 +86,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun startNetworkRequest() = viewModelScope.launch {
-        timerNetworkJob = startRepeatingJob(10000)
+        timerNetworkJob = startRepeatingJob(TIME_INTERVAL)
     }
 
     private fun startRepeatingJob(timeInterval: Long): Job {
@@ -107,7 +111,7 @@ class MainViewModel @Inject constructor(
         if (isNetworkAvailable.value == true){
             _selectedCurrency.value = dropDownAdapter.getValueFromPosition(position).trim()
             if (validateSelectedCurrency()){
-                getExchangeRates()
+                startNetworkRequest()
             }
         }
     }
