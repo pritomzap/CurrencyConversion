@@ -16,6 +16,7 @@ import com.currencyconversion.app.data.models.responses.responseExRate.ResponseC
 import com.currencyconversion.app.data.models.responses.responseExRate.ResponseExRate
 import com.currencyconversion.app.data.repositories.IConversionRepository
 import com.currencyconversion.app.databinding.LayoutCurrencyRecyclerItemBinding
+import com.currencyconversion.app.service.constants.API_LIST
 import com.currencyconversion.app.service.network.NetworkResult
 import com.currencyconversion.app.service.utils.AMOUNT_FORMATTING
 import com.currencyconversion.app.service.utils.AmountTextFormatting
@@ -59,13 +60,17 @@ class MainViewModel @Inject constructor(
     get() = field
     private val conversions by lazy{CurrencyFormatting()}
     private val amountTextFormatting by lazy{AmountTextFormatting()}
+    val isNetworkAvailable = MutableLiveData(true)
+    get() = field
 
     fun getExchangeRates() = viewModelScope.launch {
-        _selectedCurrency.value?.let {currencyString->
-            flowHandler(_responseExchangeRate){
-                repository.responseExchangeRate(currencyString)
-            }.invokeOnCompletion {
-                _lastUpdatedTime.value = SimpleDateFormat("hh:mm",Locale.US).format(Date())
+        if (isNetworkAvailable.value == true){
+            _selectedCurrency.value?.let {currencyString->
+                flowHandler(_responseExchangeRate){
+                    repository.responseExchangeRate(currencyString)
+                }.invokeOnCompletion {
+                    _lastUpdatedTime.value = SimpleDateFormat("hh:mm",Locale.US).format(Date())
+                }
             }
         }
     }
@@ -98,10 +103,12 @@ class MainViewModel @Inject constructor(
         dropDownAdapter.setData(currencyList)
     }
 
-    fun onSelectCurrency(position:Int){
-        _selectedCurrency.value = dropDownAdapter.getValueFromPosition(position).trim()
-        if (validateSelectedCurrency()){
-            getExchangeRates()
+    fun onSelectCurrency(position:Int) = viewModelScope.launch{
+        if (isNetworkAvailable.value == true){
+            _selectedCurrency.value = dropDownAdapter.getValueFromPosition(position).trim()
+            if (validateSelectedCurrency()){
+                getExchangeRates()
+            }
         }
     }
 
