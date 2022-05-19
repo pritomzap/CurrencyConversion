@@ -11,7 +11,7 @@ data class ResponseExRate(
 	val source: String? = null,
 
 	@field:SerializedName("quotes")
-	val quotes: HashMap<String,Double>? = null,
+	val quotes: HashMap<String,Double?>? = null,
 
 	@field:SerializedName("timestamp")
 	val timestamp: Int? = null,

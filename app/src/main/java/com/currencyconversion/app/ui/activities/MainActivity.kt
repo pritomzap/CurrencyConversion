@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.currencyconversion.app.R
+import com.currencyconversion.app.data.models.common.CommonDialogBuilder
 import com.currencyconversion.app.databinding.ActivityMainBinding
 import com.currencyconversion.app.service.network.NetworkResult
+import com.currencyconversion.app.ui.customViews.CommonDialogFragment
 import com.currencyconversion.app.ui.customViews.CustomProgressDialog
+import com.currencyconversion.app.ui.viewModels.DialogFragmentViewModel
 import com.currencyconversion.app.ui.viewModels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,6 +21,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var layoutBinding:ActivityMainBinding
+    private val dialogFragmentViewModel by viewModels<DialogFragmentViewModel>()
+    private val commonDialogFragment by lazy { CommonDialogFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,11 @@ class MainActivity : AppCompatActivity() {
                 doOnLoading?.invoke()
             }
         }
+    }
+
+    fun showCommonDialog(dialogBuilder: CommonDialogBuilder){
+        dialogFragmentViewModel.setData(dialogBuilder)
+        commonDialogFragment.show(supportFragmentManager,"dialog")
     }
 
 }

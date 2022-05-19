@@ -13,16 +13,21 @@ import javax.inject.Inject
 class FakeConversionRepository :IConversionRepository {
 
     private var allCurrencies:Flow<NetworkResult<ResponseCurrencies>> = flowOf()
+    private var allExchangeRate:Flow<NetworkResult<ResponseExRate>> = flowOf()
 
     override suspend fun responseExchangeRate(sourceCurrency: String): Flow<NetworkResult<ResponseExRate>> {
-        return flowOf()
+        return allExchangeRate
     }
 
     override suspend fun responseAllCurrencies(): Flow<NetworkResult<ResponseCurrencies>> {
         return allCurrencies
     }
 
-    private fun currenciesSuccess(){
-        allCurrencies = flowOf(NetworkResult.Success(ApiData.responseSuccessCurrencies))
+    override fun setAllCurrenciesData(data: NetworkResult<ResponseCurrencies>) {
+        allCurrencies = flowOf(data)
+    }
+
+    override fun setExchangeRate(data: NetworkResult<ResponseExRate>) {
+        allExchangeRate = flowOf(data)
     }
 }

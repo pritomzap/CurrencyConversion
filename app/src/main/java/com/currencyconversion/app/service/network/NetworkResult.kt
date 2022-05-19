@@ -7,7 +7,7 @@ sealed class NetworkResult<T>(
 
     class Success<T>(data: T?,successMessage:String? = "") : NetworkResult<T>(data,successMessage)
 
-    class Error<T>(code:Int = 0,message: String, data: T? = null) : NetworkResult<T>(data, message)
+    class Error<T>(message: String? = null, data: T? = null) : NetworkResult<T>(data, message)
 
     class Loading<T> : NetworkResult<T>()
 

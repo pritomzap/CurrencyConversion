@@ -32,4 +32,12 @@ class ConversionRepository @Inject constructor(
             emit(safeApiCall { remoteDataSource.getCurrencies() })
         }.flowOn(Dispatchers.IO)
     }
+
+    override fun setAllCurrenciesData(data: NetworkResult<ResponseCurrencies>) {
+        //FOR TEST PURPOSE ONLY
+    }
+
+    override fun setExchangeRate(data: NetworkResult<ResponseExRate>) {
+        //FOR TEST PURPOSE ONLY
+    }
 }

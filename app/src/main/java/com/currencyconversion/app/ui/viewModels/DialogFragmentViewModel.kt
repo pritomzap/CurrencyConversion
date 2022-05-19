@@ -13,6 +13,5 @@ class DialogFragmentViewModel @Inject constructor(application: Application) : An
 
     private val _commonDialogBuilder: MutableLiveData<CommonDialogBuilder> = MutableLiveData()
     fun setData(titleText: CommonDialogBuilder) = viewModelScope.launch { _commonDialogBuilder.postValue(titleText) }
-    fun fetchData(): LiveData<CommonDialogBuilder> = _commonDialogBuilder.switchMap { titleData -> liveData(
-        Dispatchers.IO) { emit(titleData) } }
+    fun fetchData(): LiveData<CommonDialogBuilder> = _commonDialogBuilder.switchMap { titleData -> liveData(Dispatchers.IO) { emit(titleData) } }
 }

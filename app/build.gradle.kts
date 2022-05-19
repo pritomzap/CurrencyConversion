@@ -86,17 +86,17 @@ android {
         create("dev"){
             dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"https://api.apilayer.com/\"")
-            buildConfigField("String", "API_KEY", "\"InK4FtnyGNGABNTVlMxz7cwCxAKNU1cU\"")
+            buildConfigField("String", "API_KEY", "\"6GjnCdg3Uc7dvvMY5CWfIm1kNxwc9Mp9\"")
         }
         create("staging"){
             dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"https://api.apilayer.com/\"")
-            buildConfigField("String", "API_KEY", "\"InK4FtnyGNGABNTVlMxz7cwCxAKNU1cU\"")
+            buildConfigField("String", "API_KEY", "\"6GjnCdg3Uc7dvvMY5CWfIm1kNxwc9Mp9\"")
         }
         create("production"){
             dimension = "environment"
             buildConfigField("String", "BASE_URL", "\"https://api.apilayer.com/\"")
-            buildConfigField("String", "API_KEY", "\"InK4FtnyGNGABNTVlMxz7cwCxAKNU1cU\"")
+            buildConfigField("String", "API_KEY", "\"6GjnCdg3Uc7dvvMY5CWfIm1kNxwc9Mp9\"")
         }
     }
 }

@@ -9,8 +9,6 @@ import retrofit2.Response
 
 abstract class BaseRepository(private val context:Context){
 
-    private var doOnUnauthenticate:(()->Unit)? = null
-
     suspend fun <T> safeApiCall(apiCall: suspend () -> Response<T>): NetworkResult<T> {
         val response = apiCall()
         try {
@@ -18,8 +16,7 @@ abstract class BaseRepository(private val context:Context){
                 val body = response.body()
                 NetworkResult.Success(body,null)
             }else if (response.code() == 401){
-                doOnUnauthenticate!!.invoke()
-                error(response.code(),response.message()?:"Unauthenticated")
+                error(response.code(), response.message())
             }else
                 error(response.code(), response.message())
         } catch (e: Exception) {
@@ -27,9 +24,8 @@ abstract class BaseRepository(private val context:Context){
         }
     }
 
-    private fun <T> error(code:Int,errorMessage: String,data: T?=null): NetworkResult<T> = NetworkResult.Error(code,errorMessage,data)
-
-    fun setDoOnUnauthenticate(block:()->Unit){
-        this.doOnUnauthenticate = block
-    }
+    private fun <T> error(code:Int,errorMessage: String,data: T?=null): NetworkResult<T> = NetworkResult.Error(
+        errorMessage,
+        data
+    )
 }

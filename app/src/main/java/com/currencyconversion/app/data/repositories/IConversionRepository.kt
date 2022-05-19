@@ -10,4 +10,8 @@ interface IConversionRepository {
     suspend fun responseExchangeRate(sourceCurrency: String): Flow<NetworkResult<ResponseExRate>>
 
     suspend fun responseAllCurrencies(): Flow<NetworkResult<ResponseCurrencies>>
+
+    fun setAllCurrenciesData(data:NetworkResult<ResponseCurrencies>)
+
+    fun setExchangeRate(data:NetworkResult<ResponseExRate>)
 }

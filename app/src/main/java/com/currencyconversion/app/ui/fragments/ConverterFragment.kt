@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.currencyconversion.app.R
+import com.currencyconversion.app.data.models.common.CommonDialogBuilder
 import com.currencyconversion.app.databinding.FragmentConverterBinding
 import com.currencyconversion.app.service.network.NetworkResult
 import com.currencyconversion.app.ui.activities.MainActivity
@@ -32,22 +33,24 @@ class ConverterFragment : BaseFragment(R.layout.fragment_converter) {
     override fun attachResumableObserver(){
         viewModel.currencies.observe(viewLifecycleOwner){response->
             (activity as MainActivity).executeNetworkResults(response, doOnSuccess = {
-                viewModel.setCurrencyToAdapter(response.data?.currencies?.keys?.toList()?: emptyList())
+                when(response.data?.success){
+                    true-> viewModel.setCurrencyToAdapter(response.data.currencies?.keys?.toList()?: emptyList())
+                    false-> (requireActivity() as MainActivity).showCommonDialog(CommonDialogBuilder(type = CommonDialogBuilder.CommonDialogType.ERROR,subTitle = response.message))
+                    else -> (requireActivity() as MainActivity).showCommonDialog(CommonDialogBuilder(type = CommonDialogBuilder.CommonDialogType.ERROR,subTitle = resources.getString(R.string.app_common_api_error)))
+                }
+            }, doOnError = {
+                (requireActivity() as MainActivity).showCommonDialog(CommonDialogBuilder(type = CommonDialogBuilder.CommonDialogType.ERROR,subTitle = response.message?:resources.getString(R.string.app_common_api_error)))
             })
         }
         viewModel.responseExchangeRate.observe(viewLifecycleOwner){response->
             (activity as MainActivity).executeNetworkResults(response,showLoading = false, doOnSuccess = {
                 when(response.data?.success){
-                    true->{
-                        viewModel.convertedCurrenciesAdapter.listOfItems = response.data?.quotes?.entries?.map { Pair(it.key, it.value.toString()) }?.toMutableList()
-                    }
-                    false->{
-
-                    }
-                    else -> {
-
-                    }
+                    true-> viewModel.convertedCurrenciesAdapter.listOfItems = response.data.quotes?.entries?.map { Pair(it.key, it.value.toString()) }?.toMutableList()
+                    false-> (requireActivity() as MainActivity).showCommonDialog(CommonDialogBuilder(type = CommonDialogBuilder.CommonDialogType.ERROR,subTitle = response.message))
+                    else -> (requireActivity() as MainActivity).showCommonDialog(CommonDialogBuilder(type = CommonDialogBuilder.CommonDialogType.ERROR,subTitle = resources.getString(R.string.app_common_api_error)))
                 }
+            }, doOnError = {
+                (requireActivity() as MainActivity).showCommonDialog(CommonDialogBuilder(type = CommonDialogBuilder.CommonDialogType.ERROR,subTitle = response.message?:resources.getString(R.string.app_common_api_error)))
             })
         }
     }

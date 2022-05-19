@@ -31,26 +31,18 @@ class CommonDialogFragment : AppCompatDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme_Light_NoTitleBar_Fullscreen)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.layout_common_dialog, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModels.fetchData().observe(viewLifecycleOwner, {
+        mainViewModels.fetchData().observe(viewLifecycleOwner) {
             initDialog(it)
         }
-        )
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return super.onCreateDialog(savedInstanceState)
-    }
     private fun initDialog(dialogInitialValue: CommonDialogBuilder) {
         binding.apply {
             dialogTitle.text = dialogInitialValue.titleText

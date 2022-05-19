@@ -1,7 +1,11 @@
 package com.currencyconversion.app.ui.viewModels
 
 import android.app.Application
+import android.graphics.Color
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -40,7 +44,7 @@ class MainViewModel @Inject constructor(
     val responseExchangeRate: LiveData<NetworkResult<ResponseExRate>> = _responseExchangeRate
     private val  _currencies:MutableLiveData<NetworkResult<ResponseCurrencies>> = MutableLiveData()
     val currencies:LiveData<NetworkResult<ResponseCurrencies>> = _currencies
-    private val _selectedCurrency:MutableLiveData<String> = MutableLiveData()
+    val _selectedCurrency:MutableLiveData<String> = MutableLiveData()
     val amountText = MutableLiveData<String>()
     get() = field
     val dropDownAdapter = CustomDropDownAdapter(mApplication,android.R.layout.simple_dropdown_item_1line, android.R.id.text1, emptyList())
@@ -56,14 +60,12 @@ class MainViewModel @Inject constructor(
     private val conversions by lazy{CurrencyFormatting()}
     private val amountTextFormatting by lazy{AmountTextFormatting()}
 
-
     fun getExchangeRates() = viewModelScope.launch {
         _selectedCurrency.value?.let {currencyString->
             flowHandler(_responseExchangeRate){
                 repository.responseExchangeRate(currencyString)
             }.invokeOnCompletion {
                 _lastUpdatedTime.value = SimpleDateFormat("hh:mm",Locale.US).format(Date())
-
             }
         }
     }
@@ -126,8 +128,13 @@ class MainViewModel @Inject constructor(
             _selectionEnable.value = true
             conversions.conversionValue = s.toString()
             amountText.value = conversions.conversionText
-        }else
+            if (_responseExchangeRate.value != null){
+                convertedCurrenciesAdapter.listOfItems = _responseExchangeRate.value!!.data?.quotes?.entries?.map { Pair(it.key, it.value.toString()) }?.toMutableList()
+            }
+        }else {
             _selectionEnable.value = false
+            convertedCurrenciesAdapter.listOfItems = mutableListOf()
+        }
     }
 
     private fun textValidation(s:Editable):String?{
@@ -147,6 +154,5 @@ class MainViewModel @Inject constructor(
             return false
         return true
     }
-
 
 }
