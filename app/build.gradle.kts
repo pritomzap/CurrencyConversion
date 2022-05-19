@@ -151,12 +151,12 @@ dependencies {
     testImplementation ("androidx.test.ext:junit:1.1.3")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
 
-    testImplementation ("com.google.dagger:hilt-android-testing:${Versions.hiltVersion}")
-    kaptTest ("com.google.dagger:hilt-compiler:${Versions.hiltVersion}")
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:${Versions.hiltVersion}")
+    kaptAndroidTest ("com.google.dagger:hilt-compiler:${Versions.hiltVersion}")
 
     val arch_version = "2.1.0"
-    testImplementation ("androidx.arch.core:core-testing:$arch_version")
-    testImplementation ("androidx.test:core-ktx:1.4.0")
+    androidTestImplementation ("androidx.arch.core:core-testing:$arch_version")
+    androidTestImplementation ("androidx.test:core-ktx:1.4.0")
 
     androidTestImplementation ("com.google.truth:truth:1.1")
     testImplementation ("com.google.truth:truth:1.1")

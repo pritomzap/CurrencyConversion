@@ -1,18 +1,13 @@
 package com.currencyconversion.app.service.utils
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.currencyconversion.app.service.utils.AMOUNT_FORMATTING
 import com.currencyconversion.app.service.utils.AmountTextFormatting
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.junit.MockitoJUnitRunner
 import java.util.*
 
-@RunWith(AndroidJUnit4::class)
 class AmountTextFormattingTest{
 
     private val  amountTextFormatting = AmountTextFormatting()
