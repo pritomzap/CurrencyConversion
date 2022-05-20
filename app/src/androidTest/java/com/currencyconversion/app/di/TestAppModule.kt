@@ -12,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object TestAppModule {
     @Provides
-    fun provideRepository() = MainViewModel(FakeConversionRepository(), mApplication = ApplicationProvider.getApplicationContext())
+    fun provideViewModel() = MainViewModel(FakeConversionRepository(), mApplication = ApplicationProvider.getApplicationContext())
 }

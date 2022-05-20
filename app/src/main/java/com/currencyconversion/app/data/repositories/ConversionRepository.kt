@@ -5,7 +5,6 @@ import com.currencyconversion.app.data.models.responses.responseExRate.ResponseC
 import com.currencyconversion.app.data.models.responses.responseExRate.ResponseExRate
 import com.currencyconversion.app.data.remoteDataSource.RemoteDataSource
 import com.currencyconversion.app.service.network.NetworkResult
-import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.Dispatchers

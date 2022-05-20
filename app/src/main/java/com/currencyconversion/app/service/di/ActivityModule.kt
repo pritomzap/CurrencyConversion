@@ -1,4 +1,4 @@
-package com.deshi.personal.service.di
+package com.currencyconversion.app.service.di
 
 import android.content.Context
 import com.currencyconversion.app.BuildConfig

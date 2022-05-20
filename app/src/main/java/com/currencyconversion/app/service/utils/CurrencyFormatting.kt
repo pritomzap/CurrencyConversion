@@ -42,9 +42,9 @@ class CurrencyFormatting{
             if (splitted.last().isEmpty())
                 conversion
             else
-                decimalFormatter.format(BigDecimal(conversion))
+                decimalFormatter.format(BigDecimal(removeComma(conversion)))
         }else
-            decimalFormatter.format(BigDecimal(conversion))
+            decimalFormatter.format(BigDecimal(removeComma(conversion)))
     }
 
     fun removeComma(value:String?) = if (value?.contains(",") == true) value.replace(",","") else value!!

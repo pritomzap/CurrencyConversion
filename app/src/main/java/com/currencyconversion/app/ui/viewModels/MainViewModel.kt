@@ -44,7 +44,6 @@ class MainViewModel @Inject constructor(
     }
 
     private lateinit var timerNetworkJob:Job
-    private var firstTimeLoad = true
     private val _responseExchangeRate: MutableLiveData<NetworkResult<ResponseExRate>> = MutableLiveData()
     val responseExchangeRate: LiveData<NetworkResult<ResponseExRate>> = _responseExchangeRate
     private val  _currencies:MutableLiveData<NetworkResult<ResponseCurrencies>> = MutableLiveData()
@@ -100,7 +99,7 @@ class MainViewModel @Inject constructor(
 
     override fun onCleared() {
         super.onCleared()
-        timerNetworkJob.cancel()
+        if (timerNetworkJob != null) timerNetworkJob.cancel()
     }
 
     fun setCurrencyToAdapter(currencyList:List<String>){
@@ -120,7 +119,7 @@ class MainViewModel @Inject constructor(
         convertedCurrenciesAdapter.apply {
             expressionViewHolderBinding = {eachItem, viewBinding, _ ->
                 (viewBinding as LayoutCurrencyRecyclerItemBinding).apply {
-                    conversions.conversionValue = CurrencyConverter.convertCurrencyWithExchangeRate(eachItem.second,amountText.value!!)
+                    conversions.conversionValue = CurrencyConverter.convertCurrencyWithExchangeRate(eachItem.second,conversions.removeComma(amountText.value!!))
                     val convertedPair = getConvertedCurrencyText(eachItem.first) to conversions.conversionText
                     this.currency = convertedPair
                 }
